@@ -20,6 +20,13 @@ public:
 	~World();
 
 private:
+
+	Surface *bg;
+	Surface *fg;
+	void createBackground();
+	void createForeground();
+
+	void World_display();
 };
 
 #endif

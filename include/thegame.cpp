@@ -10,6 +10,7 @@ int main(int argc,char *argv[])
 	Resource::cache("../res/hero/hero.wad");
 	Resource::cache("../res/weapons/weapons.wad");
 	Resource::cache("../res/pack.pak");
+	Resource::cache("../res/cenario/background.wad");
 
 	Object *obj = new Object();
 		obj->addListener([obj]()
