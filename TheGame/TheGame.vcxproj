@@ -10,6 +10,31 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\include\item\Item.cpp" />
+    <ClCompile Include="..\include\physics\Physics.cpp" />
+    <ClCompile Include="..\include\physics\Projectile.cpp" />
+    <ClCompile Include="..\include\physics\Target.cpp" />
+    <ClCompile Include="..\include\prop\Gore.cpp" />
+    <ClCompile Include="..\include\thegame.cpp" />
+    <ClCompile Include="..\include\unit\Bigfoot.cpp" />
+    <ClCompile Include="..\include\unit\Hero.cpp" />
+    <ClCompile Include="..\include\unit\Unit.cpp" />
+    <ClCompile Include="..\include\weapon\Axe.cpp" />
+    <ClCompile Include="..\include\world\World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\item\Item.h" />
+    <ClInclude Include="..\include\physics\Physics.h" />
+    <ClInclude Include="..\include\physics\Projectile.h" />
+    <ClInclude Include="..\include\physics\Target.h" />
+    <ClInclude Include="..\include\prop\Gore.h" />
+    <ClInclude Include="..\include\unit\Bigfoot.h" />
+    <ClInclude Include="..\include\unit\Hero.h" />
+    <ClInclude Include="..\include\unit\Unit.h" />
+    <ClInclude Include="..\include\weapon\Axe.h" />
+    <ClInclude Include="..\include\world\World.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B2A048A5-AB8B-46DE-9480-AAF03D4D9CF8}</ProjectGuid>
     <RootNamespace>TheGame</RootNamespace>
@@ -69,25 +94,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\include\Axe.cpp" />
-    <ClCompile Include="..\include\Hero.cpp" />
-    <ClCompile Include="..\include\Item.cpp" />
-    <ClCompile Include="..\include\Physics.cpp" />
-    <ClCompile Include="..\include\Projectile.cpp" />
-    <ClCompile Include="..\include\thegame.cpp" />
-    <ClCompile Include="..\include\Unit.cpp" />
-    <ClCompile Include="..\include\World.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\include\Axe.h" />
-    <ClInclude Include="..\include\Hero.h" />
-    <ClInclude Include="..\include\Item.h" />
-    <ClInclude Include="..\include\Physics.h" />
-    <ClInclude Include="..\include\Projectile.h" />
-    <ClInclude Include="..\include\Unit.h" />
-    <ClInclude Include="..\include\World.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
