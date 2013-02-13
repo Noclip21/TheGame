@@ -14,6 +14,12 @@ Projectile::Projectile(	Surface	*parent,
 													posy)
 {
 	objects.push_back(this);
+	
+
+	airFrictionf =	0;
+	enableFall =	true;
+	noclip =		false;
+
 
 	avel.x = cos(angle)*force;
 	avel.y = sin(angle)*force;

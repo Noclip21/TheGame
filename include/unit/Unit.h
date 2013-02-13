@@ -13,15 +13,14 @@ public:
 
 	double vel;
 	double maxVel;
-	double jumpf;
 	double attackf;
 	double knockbackf;
 
 
-	Unit(	Surface *parent,
+	Unit(	Surface *parent =	NULL,
 			double posx =		0,
 			double posy =		0,
-			double hitpoints =	100);
+			double hitpoints =	1);
 	~Unit();
 
 
@@ -36,16 +35,18 @@ public:
 
 	void bleed(float angle);
 	void implode();
-	void unitdmg(	double dmg,
+	void Unit_dmg(	double dmg,
 					double knockbackf,
 					vector2 origin);
-	void unitattck(Unit *unit);
+
+	void Unit_idle();
+	void Unit_goLeft();
+	void Unit_goRight();
+	void Unit_attack(Unit *target);
 
 private:
 
 	double _startHp;
-
-	void Unit_display();
 };
 
 #endif

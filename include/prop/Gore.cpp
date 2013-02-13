@@ -46,11 +46,12 @@ Gore::Gore(int		type,
 
 	enableFall =	true;
 	noclip =		false;
+	airFrictionf =	0;
 	switch(type)
 	{
 		case(GORE_BLOOD):{
-			bounceFactor =		0;
-			frictionFactor =	0;
+			bouncef =	0;
+			frictionf =	0;
 
 			setTexture(_blood[rand()%_bloodNum]);
 
@@ -59,8 +60,8 @@ Gore::Gore(int		type,
 			break;
 		}
 		case(GORE_BIGBLOOD):{
-			bounceFactor =		0;
-			frictionFactor =	0;
+			bouncef =	0;
+			frictionf =	0;
 
 			setTexture(_bigblood[rand()%_bigbloodNum]);
 
@@ -69,8 +70,8 @@ Gore::Gore(int		type,
 			break;
 		}
 		case(GORE_BITS):{
-			bounceFactor =		0.5;
-			frictionFactor =	0.5;
+			bouncef =	0.5;
+			frictionf =	0.5;
 
 			setTexture(_bits[rand()%_bitsNum]);
 

@@ -14,11 +14,11 @@ public:
 	vector<Target*> tragetsIntercepted;
 
 
-	Projectile(	Surface	*parent,
-				double	posx,
-				double	posy,
-				double	force,
-				float	angle);
+	Projectile(	Surface	*parent =	NULL,
+				double	posx =		0,
+				double	posy =		0,
+				double	force =		0,
+				float	angle =		0);
 	~Projectile();
 	
 private:

@@ -18,14 +18,16 @@ Unit::Unit(	Surface *parent,
 
 	vel =			0;
 	maxVel =		0;
-	jumpf =			0;
 	attackf =		0;
 	knockbackf =	0;
 
+	bouncef =		0;
+	frictionf =		0;
+	airFrictionf =	0;
+	enableFall =	false;
+	noclip =		true;
+
 	_startHp = hitpoints;
-
-
-	addListener([this](){ Unit_display(); });
 }
 Unit::~Unit()
 {
@@ -36,19 +38,33 @@ Unit::~Unit()
 
 void Unit::dashX(double fx)
 {
-	if(abs(avel.x + fx) <= maxVel)
-		avel.x += fx;
-	else
-		if(fx > 0)	avel.x = maxVel;
-		else		avel.x = -maxVel;
+	if(fx > 0)
+		if(avel.x + fx <= maxVel)
+			avel.x += fx;
+		else
+			if(avel.x <= maxVel)
+				avel.x = maxVel;
+	if(fx < 0)
+		if(avel.x + fx >= -maxVel)
+			avel.x += fx;
+		else
+			if(avel.x >= -maxVel)
+				avel.x = -maxVel;
 }
 void Unit::dashY(double fy)
 {
-	if(abs(avel.y + fy) <= maxVel)
-		avel.y += fy;
-	else
-		if(fy > 0)	avel.y = maxVel;
-		else		avel.y = -maxVel;
+	if(fy > 0)
+		if(avel.y + fy <= maxVel)
+			avel.y += fy;
+		else
+			if(avel.y <= maxVel)
+				avel.y = maxVel;
+	if(fy < 0)
+		if(avel.y + fy >= -maxVel)
+			avel.y += fy;
+		else
+			if(avel.y >= -maxVel)
+				avel.y = -maxVel;
 }
 void Unit::dash(vector2 force)
 {
@@ -85,11 +101,11 @@ void Unit::implode()
 		else				new Gore(GORE_BITS,parent(),pos.x,pos.y-32,20,angle);
 	}
 }
-void Unit::unitdmg(double dmg,
+void Unit::Unit_dmg(double dmg,
 				   double knockbackf,
 				   vector2 origin)
 {
-	targetdmg(dmg);
+	Target_dmg(dmg);
 
 	if(dmg > 0)
 	{
@@ -101,14 +117,34 @@ void Unit::unitdmg(double dmg,
 		if(dmg >= _startHp) implode();
 	}
 }
-void Unit::unitattck(Unit *unit)
+
+
+
+void Unit::Unit_idle()
 {
-	if(unit) unit->unitdmg(attackf,knockbackf,pos);
+	play("idle");
+
+	avel = 0;
 }
-
-
-
-void Unit::Unit_display()
+void Unit::Unit_goLeft()
 {
-	// code
+	play("walk");
+
+	scale.x = -abs(scale.x);
+
+	dashLeft();
+}
+void Unit::Unit_goRight()
+{
+	play("walk");
+
+	scale.x = abs(scale.x);
+
+	dashRight();
+}
+void Unit::Unit_attack(Unit *target)
+{
+	play("attack");
+	
+	if(target) target->Unit_dmg(attackf,knockbackf,pos);
 }

@@ -18,13 +18,12 @@ Axe::Axe(Surface	*parent,
 	objects.push_back(this);
 
 	setTexture("w_axe.bmp");
-
 	origin = vector2(8,8);
 
-	bounceFactor = 0.5;
-	frictionFactor = 0.5;
-	enableFall = true;
-	noclip = false;
+
+	bouncef =		0.5;
+	frictionf =		0.5;
+
 
 	_hitGround = false;
 
@@ -53,6 +52,6 @@ void Axe::Axe_display()
 			if(dynamic_cast<Unit*>(tragetsIntercepted[i]))
 			{
 				Unit *unit = ((Unit*)(tragetsIntercepted[i]));
-				unit->unitdmg(10,4,oldPos());
+				unit->Unit_dmg(999,4,oldPos());
 			}
 }

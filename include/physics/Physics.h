@@ -14,8 +14,10 @@ public:
 	static float gravity;
 	static double ground;
 
-	float	bounceFactor;
-	float	frictionFactor;
+	float	bouncef;
+	float	frictionf;
+	float	airFrictionf;
+
 	bool	enableFall;
 	bool	noclip;
 
@@ -23,9 +25,9 @@ public:
 	bool onGround();
 
 
-	Physics(Surface *parent,
-			double	posx =	0,
-			double	posy =	0);
+	Physics(Surface *parent =	NULL,
+			double	posx =		0,
+			double	posy =		0);
 	~Physics();
 
 private:

@@ -3,24 +3,19 @@
 
 vector<Bigfoot*> Bigfoot::objects;
 
-int Bigfoot::maxsight = 500;
-int Bigfoot::attackRange = 10;
+int Bigfoot::maxsight =		500;
+int Bigfoot::attackRange =	10;
 
 
 
 Bigfoot::Bigfoot(Surface *parent,
 			double posx,
-			double posy) : Unit(parent,
-								posx,
-								posy,
-								100)
+			double posy) : GroundUnit(	parent,
+										posx,
+										posy,
+										100)
 {
 	objects.push_back(this);
-
-	bounceFactor =		0;
-	frictionFactor =	0.2;
-	enableFall =		true;
-	noclip =			false;
 
 
 	vel =		1;
@@ -60,10 +55,10 @@ Bigfoot::~Bigfoot()
 	Projectile *body = new Projectile(parent(),pos.x,pos.y,15,(ang(oldPos(),pos)+ang(vector2(0,0),vector2(0,-1))/2));
 	body->setTexture("bigfootDead.bmp");
 	body->origin = vector2(32,64);
-	body->bounceFactor =	0.5;
-	body->frictionFactor =	0.2;
-	body->enableFall =		true;
-	body->noclip =			false;
+	body->bouncef =		0.5;
+	body->frictionf =	0.2;
+	body->enableFall =	true;
+	body->noclip =		false;
 	body->addListener([body]()
 	{
 		body->alpha -= 0.01;
@@ -74,39 +69,14 @@ Bigfoot::~Bigfoot()
 
 
 
-void Bigfoot::idle()
-{
-	if(onGround())	play("idle");
-	else			play("jump");
-	avel = 0;
-}
-void Bigfoot::walkLeft()
-{
-	if(onGround())	play("walk");
-	else			play("jump");
-
-	scale.x = -abs(scale.x);
-
-	dashLeft();
-}
-void Bigfoot::walkRight()
-{
-	if(onGround())	play("walk");
-	else			play("jump");
-
-	scale.x = abs(scale.x);
-
-	dashRight();
-}
-void Bigfoot::attack(Unit *target)
+void Bigfoot::Bigfoot_attack(Unit *target)
 {
 	if(dist(pos,target->pos) <= attackRange && !_attacking)
 	{
-		_attacking = true;
-		play("attack");
-		callback([this](){ _attacking = false; });
+		Unit_attack(target);
 
-		unitattck(target);
+		_attacking = true;
+		callback([this](){ _attacking = false; });
 	}
 }
 
@@ -120,15 +90,15 @@ void Bigfoot::Bigfoot_display()
 
 		if(dist(pos,hero->pos) <= maxsight)
 		{
-			attack(hero);
+			Bigfoot_attack(hero);
 
 			if(!_attacking)
 			{
-				if(hero->pos.x < pos.x) walkLeft();
-				if(hero->pos.x > pos.x) walkRight();
+				if(hero->pos.x < pos.x) GroundUnit_walkLeft();
+				if(hero->pos.x > pos.x) GroundUnit_walkRight();
 			}
 		}else
-			idle();
+			GroundUnit_idle();
 	}else
-		idle();
+		GroundUnit_idle();
 }

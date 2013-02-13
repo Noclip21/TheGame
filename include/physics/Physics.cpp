@@ -15,10 +15,11 @@ Physics::Physics(Surface	*parent,
 {
 	objects.push_back(this);
 	
-	bounceFactor =	 0;
-	frictionFactor = 0;
-	enableFall =	 false;
-	noclip =		 true;
+	bouncef=		0;
+	frictionf =		0;
+	airFrictionf =	0;
+	enableFall =	false;
+	noclip =		true;
 	
 	_onGround =	false;
 
@@ -39,12 +40,18 @@ void Physics::Physics_display()
 		if(pos.y + avel.y >= ground)
 		{
 			_onGround = true;
-			pos.y = ground;
-			avel.x *= (1-frictionFactor);
-			if(avel.y >= 1)	avel.y = -avel.y*bounceFactor;
-			else				avel.y = 0;
+			pos.y =		ground;
+			avel.x *=	(1-frictionf);
+
+			if(avel.y >= 1)	avel.y = -avel.y*bouncef;
+			else			avel.y = 0;
 		}else
 			_onGround = false;
+
+	if(_onGround)
+		avel = avel*(1-frictionf);
+	else
+		avel = avel*(1-airFrictionf);
 
 	if(!_onGround && enableFall)
 		avel.y += gravity;

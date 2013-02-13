@@ -18,15 +18,15 @@ public:
 
 	
 
-	Target(	Surface *parent,
-			double	posx,
-			double	posy,
-			double hitpoints);
+	Target(	Surface *parent =	NULL,
+			double	posx =		0,
+			double	posy =		0,
+			double hitpoints =	1);
 	~Target();
 
 
 	void addhitlines(vector2 p1,vector2 p2);
-	void targetdmg(double dmg);
+	void Target_dmg(double dmg);
 
 private:
 

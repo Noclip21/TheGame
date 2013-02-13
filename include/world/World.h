@@ -6,6 +6,8 @@
 #include "../unit/Hero.h"
 #include "../item/Item.h"
 #include "../unit/Bigfoot.h"
+#include "../unit/Wolf.h"
+#include "../physics/Thread.h"
 
 
 class World : public Screen

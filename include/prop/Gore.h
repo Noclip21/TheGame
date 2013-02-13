@@ -18,12 +18,12 @@ public:
 	static int maxdecals;
 
 
-	Gore(	int		type,
-			Surface *parent,
-			double	posx,
-			double	posy,
-			double	force,
-			float	angle);
+	Gore(	int		type =		0,
+			Surface *parent =	NULL,
+			double	posx =		0,
+			double	posy =		0,
+			double	force =		0,
+			float	angle =		0);
 	~Gore();
 
 

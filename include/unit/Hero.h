@@ -1,16 +1,17 @@
 #ifndef HERO_H
 #define HERO_H
 
-#include "Unit.h"
+#include "GroundUnit.h"
 #include "../weapon/Axe.h"
 
 
-class Hero : public Unit
+class Hero : public GroundUnit
 {
 public:
 
 	static Hero *hero;
 	
+
 	Hero(Surface	*parent,
 		double		posx = 0,
 		double		posy = 0);
@@ -19,11 +20,6 @@ public:
 private:
 
 	bool _mousePressed;
-
-	void idle();
-	void walkLeft();
-	void walkRight();
-	void jump();
 
 	void Hero_display();
 };

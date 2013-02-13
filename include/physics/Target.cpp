@@ -49,7 +49,7 @@ void Target::addhitlines(vector2 p1, vector2 p2)
 {
 	_hitlines.push_back(make_pair(p1,p2));
 }
-void Target::targetdmg(double dmg)
+void Target::Target_dmg(double dmg)
 {
 	_hp -= dmg;
 	if(_hp <= 0) kill();

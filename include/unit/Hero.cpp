@@ -1,5 +1,5 @@
 #include "Hero.h"
-
+#include "../world/World.h"
 
 Hero *Hero::hero;
 
@@ -7,20 +7,22 @@ Hero *Hero::hero;
 
 Hero::Hero(Surface	*parent,
 		   double	posx,
-		   double	posy) : Unit(	parent,
-									posx,
-									posy,
-									100)
+		   double	posy) : GroundUnit(	parent,
+										posx,
+										posy,
+										100)
 {
 	if(hero) hero->kill();
 	hero = this;
 
-	vel =			1;
-	maxVel =		10;
-	jumpf =			20;
-	frictionFactor = 0.1;
-	enableFall =	true;
-	noclip =		false;
+
+	vel =		1;
+	maxVel =	10;
+	jumpf =		20;
+
+
+	_mousePressed = false;
+
 
 	char *idle[] = {"heroIdle.bmp"};
 	char *walk[] = {"heroWalk1.bmp",
@@ -33,7 +35,6 @@ Hero::Hero(Surface	*parent,
 	addAnimation("walk",250,walk,4);
 	addAnimation("jump",1,jump,1);
 
-	_mousePressed = false;
 
 	addListener([this](){ Hero_display(); });
 }
@@ -44,50 +45,17 @@ Hero::~Hero()
 
 
 
-void Hero::idle()
-{
-	if(onGround())	play("idle");
-	else			play("jump");
-}
-void Hero::walkLeft()
-{
-	if(onGround())	play("walk");
-	else			play("jump");
-
-	scale.x = -abs(scale.x);
-
-	dashLeft();
-}
-void Hero::walkRight()
-{
-	if(onGround())	play("walk");
-	else			play("jump");
-
-	scale.x = abs(scale.x);
-
-	dashRight();
-}
-void Hero::jump()
-{
-	if(onGround()) 
-	{
-		play("jump");
-		avel.y -= jumpf;
-	}
-}
-
-
-
 void Hero::Hero_display()
 {
 	if(Event::keyDown(SDLK_a) || Event::keyDown(SDLK_d))
 	{
-		if(Event::keyDown(SDLK_a)) walkLeft();
-		if(Event::keyDown(SDLK_d)) walkRight();
+		if(Event::keyDown(SDLK_a)) GroundUnit_walkLeft();
+		if(Event::keyDown(SDLK_d)) GroundUnit_walkRight();
 	}else
-		idle();
+		GroundUnit_idle();
 
-	if(Event::keyDown(SDLK_SPACE)) jump();
+	if(Event::keyDown(SDLK_SPACE)) GroundUnit_jump();
+	World::debug->text(toStringi(jumpf));
 
 	if(Event::mouseButtonDown(SDL_BUTTON_LEFT))
 		_mousePressed = true;

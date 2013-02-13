@@ -1,11 +1,11 @@
 #ifndef BIGFOOT_H
 #define BIGFOOT_H
 
-#include "Unit.h"
+#include "GroundUnit.h"
 #include "Hero.h"
 
 
-class Bigfoot : public Unit
+class Bigfoot : public GroundUnit
 {
 public:
 
@@ -19,14 +19,12 @@ public:
 			double posy);
 	~Bigfoot();
 
+
+	void Bigfoot_attack(Unit *target);
+
 private:
 
 	bool _attacking;
-
-	void idle();
-	void walkLeft();
-	void walkRight();
-	void attack(Unit *target);
 
 	void Bigfoot_display();
 };
