@@ -93,11 +93,14 @@
     <ClCompile Include="..\include\physics\Thread.cpp">
       <Filter>Source Files\physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\weapon\Mace.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\include\weapon\MaceBall.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\weapon\Mace.cpp">
+      <Filter>Source Files\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\unit\Onix.cpp">
+      <Filter>Source Files\unit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,11 +143,14 @@
     <ClInclude Include="..\include\physics\Thread.h">
       <Filter>Header Files\physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\weapon\Mace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\weapon\MaceBall.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\weapon\Mace.h">
+      <Filter>Header Files\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\unit\Onix.h">
+      <Filter>Header Files\unit</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

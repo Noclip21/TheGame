@@ -6,18 +6,26 @@ vector<MaceBall*> MaceBall::objects;
 
 
 MaceBall::MaceBall(Surface *parent,
-				   double posx,
-				   double posy,
-				   double force,
-				   double angle) : Projectile(parent,posx,posy,force,angle)
+				   double	posx,
+				   double	posy,
+				   double	force,
+				   double	angle) : Projectile(parent,
+												posx,
+												posy,
+												force,
+												angle)
 {
 	objects.push_back(this);
 
 	setTexture("maceBall.bmp");
 	origin = vector2(32,32);
 
+
 	bouncef =	0.2;
 	frictionf = 0.5;
+
+
+	addListener([this](){ MaceBall_display(); });
 }
 MaceBall::~MaceBall()
 {

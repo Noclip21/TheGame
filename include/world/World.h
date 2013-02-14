@@ -7,7 +7,7 @@
 #include "../item/Item.h"
 #include "../unit/Bigfoot.h"
 #include "../unit/Wolf.h"
-#include "../physics/Thread.h"
+#include "../unit/Onix.h"
 
 
 class World : public Screen
@@ -31,6 +31,7 @@ private:
 	static int _restartTime;
 	int	_restartTimer;
 
+	Audio *audio;
 	void createBackground();
 	void createForeground();
 

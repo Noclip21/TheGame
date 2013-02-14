@@ -43,8 +43,8 @@ void Physics::Physics_display()
 			pos.y =		ground;
 			avel.x *=	(1-frictionf);
 
-			if(avel.y >= 1)	avel.y = -avel.y*bouncef;
-			else			avel.y = 0;
+			if(abs(avel.y) >= 1) avel.y = -avel.y*bouncef;
+			else				 avel.y = 0;
 		}else
 			_onGround = false;
 

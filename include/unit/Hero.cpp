@@ -1,5 +1,5 @@
 #include "Hero.h"
-#include "../world/World.h"
+
 
 Hero *Hero::hero;
 
@@ -21,7 +21,10 @@ Hero::Hero(Surface	*parent,
 	jumpf =		20;
 
 
-	_mousePressed = false;
+	_mousePressedL = false;
+	_mousePressedR = false;
+
+	_weapon = new Mace(this);
 
 
 	char *idle[] = {"heroIdle.bmp"};
@@ -54,16 +57,24 @@ void Hero::Hero_display()
 	}else
 		GroundUnit_idle();
 
-	if(Event::keyDown(SDLK_SPACE)) GroundUnit_jump();
-	World::debug->text(toStringi(jumpf));
-
 	if(Event::mouseButtonDown(SDL_BUTTON_LEFT))
-		_mousePressed = true;
+		_mousePressedL = true;
 	else
-		if(_mousePressed)
+		if(_mousePressedL)
 		{
-			_mousePressed = false;
-			new Axe(parent(),pos.x,pos.y-32,25,ang(pos,parent()->mouse()));
+			_mousePressedL = false;
+			new Axe(parent(),pos.x,pos.y-32,30,ang(pos,parent()->mouse()));
+		}
+
+	if(Event::keyDown(SDLK_SPACE)) GroundUnit_jump();
+
+	if(Event::mouseButtonDown(SDL_BUTTON_RIGHT))
+		_mousePressedR = true;
+	else
+		if(_mousePressedR)
+		{
+			_mousePressedR = false;
+			_weapon->shoot(ang(pos,parent()->mouse()));
 		}
 
 	if(Event::keyDown(SDLK_e))

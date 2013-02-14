@@ -1,85 +1,78 @@
 #include "Mace.h"
 
 
-vector<Mace*> Mace::objects;
-int Mace::_maxChains = 40;
-int Mace::_time = 100;
+vector<Mace*>	Mace::objects;
+int				Mace::size = 300;
+
 
 
 Mace::Mace(Unit *unit)
 {
 	objects.push_back(this);
 
-	_timer = 0;
+	
 	_unit = unit;
-	_parent = unit->parent();
+
 
 	addListener([this](){ Mace_display(); });
 }
 Mace::~Mace()
 {
-	deleteMaceThread();
+	if(_thread) _thread->kill();
+
 	removeObject(*this,objects);
 }
 
 
 
-void Mace::shoot()
+void Mace::shoot(double angle)
 {
-	_shooting = true;
+	if(_thread)
+		_thread->kill();
 
-	newMaceThread();
-}
-void Mace::retract()
-{
-	_shooting = false;
-}
-
-
-void Mace::deleteMaceThread()
-{
-	if(alive(_maceThread)) _maceThread->kill();
-}
-void Mace::newMaceThread()
-{
-	deleteMaceThread();
-	_maceThread = new Thread();
-}
-void Mace::chainPush()
-{
-	if(_maceThread->size() < _maxChains)
+	if(_unit)
 	{
-		Physics *chain = new Physics(_parent,_unit->pos.x,_unit->pos.y);
-				if(_maceThread->size()%2 == 0)	chain->setTexture("maceChain1.bmp");
-				else							chain->setTexture("maceChain2.bmp");
-
-		_maceThread->addNode(chain);
-	}else{
-		Physics *mace = new Physics(_parent,_unit->pos.x,_unit->pos.y);
+		_thread = new Thread(_unit->parent(),_unit->pos.x,_unit->pos.y,(size/8)+1,8);
+		_thread->enableFall(true);
+		_thread->noclip(false);
+		if(_thread->begin())
+		{
+			_ball = new MaceBall(_unit->parent(),_unit->pos.x,_unit->pos.y,25,angle);
+			_thread->addNodeBegin(_ball);
+		}
+		for(int i=1; i<_thread->size(); ++i)
+		{
+			Physics *obj = _thread->node(i);
+			if(i%2 == 0) obj->setTexture("maceChain1.bmp");
+			else		 obj->setTexture("maceChain2.bmp");
+			obj->origin = vector2(8,8);
+		}
 	}
 }
-void Mace::chainPop()
-{
-	if(_maceThread->begin())
-	{
-		_maceThread->begin()->kill();
-
-		for(size_t i=1; i<_maceThread->size(); ++i)
-			_maceThread->node(i)->pos = _maceThread->node(i-1)->pos;
-	}
-}
-
 
 
 
 void Mace::Mace_display()
 {
-	if(SDL_GetTicks() - _timer >= _time)
+	if(_thread && _unit)
 	{
-		if(_shooting)
+		if(_ball)
 		{
-			chainPush();
-		}else{
-			chainPop();
+			double distance = dist(_unit->pos,_ball->pos);
+			double maxDistance = size*8;
+			if(distance > maxDistance)
+			{
+				double angle = ang(_unit->pos,_ball->pos);
+				_ball->pos = _unit->pos + vector2(cos(angle)*maxDistance,sin(angle)*maxDistance);
+				_ball->avel = _unit->avel - vector2(cos(angle)*(distance-maxDistance),sin(angle)*(distance-maxDistance));
+			}
 		}
+		/*for(int i=1; i<_thread->size(); ++i)
+		{
+			Physics *obj = _thread->node(i);
+			Physics *prev = _thread->node(i-1);
+			if(obj && prev)
+				obj->rotation = ang(prev->pos,obj->pos)*180/PI;
+		}*/
+	}
 }

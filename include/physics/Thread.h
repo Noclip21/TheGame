@@ -1,6 +1,8 @@
 #ifndef THREAD_H
 #define THREAD_H
 
+#include <deque>
+
 #include "Physics.h"
 
 
@@ -20,7 +22,8 @@ public:
 	Physics* begin();
 	Physics* end();
 	Physics* node(size_t id);
-	void addNode(Physics *obj);
+	void addNodeBegin(Physics *obj);
+	void addNodeEnd(Physics *obj);
 
 	void bouncef(float n);
 	void frictionf(float n);
@@ -39,8 +42,10 @@ public:
 private:
 
 	Surface* _parent;
-	vector<Physics*> _nodes;
+	deque<Physics*> _nodes;
 
+
+	void ThreadRemoveOject(Object *obj);
 	void Thread_display();
 };
 

@@ -10,35 +10,23 @@ class Mace : public Object
 public:
 	
 	static vector<Mace*> objects;
+	
+	static int size;
 
 
 	Mace(Unit *unit);
 	~Mace();
 
-	void shoot();
-	void retract();
+	void shoot(double angle);
 
 private:
 
-	static int _maxChains;
-	static int _time;
-	int _timer;
-
 	Unit *_unit;
-	Surface *_parent;
+	Thread *_thread;
+	MaceBall *_ball;
 
-	Thread *_maceThread;
-	Physics *_maceBall;
 
-	bool _shooting;
-
-	void deleteMaceThread();
-	void newMaceThread();
-
-	void chainPush();
-	void chainPop();
-
-	void Mace_display()
+	void Mace_display();
 };
 
 #endif

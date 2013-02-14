@@ -37,7 +37,11 @@ void Thread::noclip(bool n)
 {	for(size_t i=0; i<_nodes.size(); ++i)
 		if(_nodes[i]) _nodes[i]->noclip = n;
 }
-void Thread::addNode(Physics *obj)
+void Thread::addNodeBegin(Physics *obj)
+{
+	_nodes.push_front(obj);
+}
+void Thread::addNodeEnd(Physics *obj)
 {
 	_nodes.push_back(obj);
 }
@@ -53,7 +57,7 @@ Thread::Thread(Surface *parent,
 	objects.push_back(this);
 
 	for(int i=0; i<size; ++i)
-		addNode(new Physics(parent,posx,posy));
+		addNodeEnd(new Physics(parent,posx,posy));
 
 	nodeDist = nodeDistance;
 
@@ -69,9 +73,21 @@ Thread::~Thread()
 
 
 
+void Thread::ThreadRemoveOject(Object *obj)
+{
+	for(size_t i=0; i<_nodes.size(); ++i)
+		if(obj == _nodes[i])
+		{
+			_nodes.erase(_nodes.begin()+i);
+			break;
+		}
+}
+
+
+
 void Thread::Thread_display()
 {
-	for(int i=1; i<_nodes.size(); ++i)
+	for(size_t i=1; i<_nodes.size(); ++i)
 	{
 		Physics *obj = _nodes[i];
 		Physics *prev = node(i-1);
@@ -85,8 +101,8 @@ void Thread::Thread_display()
 				obj->avel = vector2(0,0);
 			}
 		}else{
-			if(!alive(obj))		removeObject(obj,_nodes);
-			if(!alive(prev))	removeObject(prev,_nodes);
+			if(!alive(obj))		ThreadRemoveOject(obj);
+			if(!alive(prev))	ThreadRemoveOject(prev);
 		}
 	}
 }

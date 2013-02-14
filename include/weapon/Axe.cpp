@@ -52,6 +52,6 @@ void Axe::Axe_display()
 			if(dynamic_cast<Unit*>(tragetsIntercepted[i]))
 			{
 				Unit *unit = ((Unit*)(tragetsIntercepted[i]));
-				unit->Unit_dmg(999,4,oldPos());
+				unit->Unit_dmg(10,4,oldPos());
 			}
 }

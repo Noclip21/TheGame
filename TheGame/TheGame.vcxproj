@@ -21,6 +21,7 @@
     <ClCompile Include="..\include\unit\Bigfoot.cpp" />
     <ClCompile Include="..\include\unit\GroundUnit.cpp" />
     <ClCompile Include="..\include\unit\Hero.cpp" />
+    <ClCompile Include="..\include\unit\Onix.cpp" />
     <ClCompile Include="..\include\unit\Unit.cpp" />
     <ClCompile Include="..\include\unit\Wolf.cpp" />
     <ClCompile Include="..\include\weapon\Axe.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="..\include\unit\Bigfoot.h" />
     <ClInclude Include="..\include\unit\GroundUnit.h" />
     <ClInclude Include="..\include\unit\Hero.h" />
+    <ClInclude Include="..\include\unit\Onix.h" />
     <ClInclude Include="..\include\unit\Unit.h" />
     <ClInclude Include="..\include\unit\Wolf.h" />
     <ClInclude Include="..\include\weapon\Axe.h" />

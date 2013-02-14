@@ -3,6 +3,7 @@
 
 #include "GroundUnit.h"
 #include "../weapon/Axe.h"
+#include "../weapon/Mace.h"
 
 
 class Hero : public GroundUnit
@@ -19,7 +20,11 @@ public:
 
 private:
 
-	bool _mousePressed;
+	bool _mousePressedL;
+	bool _mousePressedR;
+
+	Mace *_weapon;
+
 
 	void Hero_display();
 };
